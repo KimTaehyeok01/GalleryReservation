@@ -7,6 +7,7 @@ import com.study.galleryreservation.dto.todo.TodoResponseDto;
 import com.study.galleryreservation.dto.todo.TodoUpdateRequestDto;
 import com.study.galleryreservation.repository.MemberRepository;
 import com.study.galleryreservation.repository.TodoRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -70,7 +71,7 @@ public class TodoService {
     }
     //생성
     @Transactional
-    public TodoResponseDto create(Long memberId,TodoCreateRequestDto dto){
+    public TodoResponseDto create( @Valid Long memberId,TodoCreateRequestDto dto){
         Member member=memberRepository.findById(memberId)
                 .orElseThrow(()->new IllegalArgumentException("해당맴버가없습니다.id="+dto.getMemberId()));
         LocalDateTime now = LocalDateTime.now();
@@ -88,7 +89,7 @@ public class TodoService {
 
     //수정
     @Transactional
-    public  TodoResponseDto update(Long id, Long memberId, TodoUpdateRequestDto dto){
+    public  TodoResponseDto update(@Valid Long id, Long memberId, TodoUpdateRequestDto dto){
         if(!todoRepository.existsByIdAndMember_Id(id,memberId)){
             throw new IllegalArgumentException("본인의 Todo만 수정할 수 있습니다.");
         }
@@ -103,7 +104,7 @@ public class TodoService {
                 .content(dto.getContent())
                 .isDone(dto.getIsDone())
                 .dueDate(dto.getDueDate())
-                .createdAt(todo.getCreatedAt())
+                .createdAt(now)
                 .updatedAt(now)
                 .build();
 

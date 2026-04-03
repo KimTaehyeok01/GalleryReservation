@@ -20,13 +20,13 @@ public class Todo {
     @Column(name="title", nullable = false,length = 200)
     private String title;
 
-    @Column(name="content")
+    @Column(name="content",columnDefinition = "TEXT",length = 400)
     private String content;
 
     @Column(name="is_done",nullable = false)
     private boolean isDone;
 
-    @Column(name = "due_date", updatable = false)
+    @Column(name = "due_date",columnDefinition = "TEXT")
     private LocalDate dueDate;
 
     @Column(name = "created_at", updatable = false,nullable = false)
