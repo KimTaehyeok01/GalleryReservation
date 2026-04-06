@@ -77,10 +77,6 @@ public class Gallery {
         this.updatedAt = LocalDateTime.now();
     }
 
-    /**
-     * HTML에서 img src에 넣을 주소입니다.
-     * 인터넷 주소(https://...)는 그대로 쓰고, 그 외에는 웹 루트 기준 경로(/로 시작)로 맞춥니다.
-     */
     public String getCoverImageUrlForDisplay() {
         if (coverImageUrl == null || coverImageUrl.isBlank()) {
             return null;
@@ -93,5 +89,24 @@ public class Gallery {
             return url;
         }
         return "/" + url;
+    }
+
+
+    // 예약시 최대 수용 인원에서 차감
+    public void reduceCapacity(Integer guests) {
+        if (guests == null || guests <= 0) {
+            throw new IllegalArgumentException("예약 인원은 1명 이상이어야 합니다.");
+        }
+        if (this.capacity == null || this.capacity < guests) {
+            throw new IllegalArgumentException("갤러리의 남은 수용 인원이 부족합니다.");
+        }
+        this.capacity -= guests;
+    }
+
+    // 예약 취소시 수용 인원에서 증가
+    public void restoreCapacity(Integer guests) {
+        if (guests != null && guests > 0) {
+            this.capacity += guests;
+        }
     }
 }

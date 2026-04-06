@@ -8,18 +8,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>전시 상세 — Art Museum</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" th:href="@{/css/common.css}"/>
   <style>
     /* 전시 상세 전용 */
     .formGrid { gap: 14px; }
-    input { padding: 12px 14px; font-size: 14.5px; }
-    select {
-      padding: 12px 14px;
-      padding-right: 42px;
-      font-size: 14.5px;
-      background-position: right 13px center;
-    }
+    input, select { padding: 12px 14px; font-size: 14.5px; }
 
     /* ── 좌우 분할 레이아웃 ── */
     .detailLayout {
@@ -388,10 +381,9 @@
             </div>
             <div style="grid-column: 1 / -1">
               <label for="rContact">연락처</label>
-              <input id="rContact" name="contact" type="tel" placeholder="하이픈 없이 입력해주세요" />
-              <!-- 에러가 있으면 보여주는 message가 담긴 span -->
-              <span th:if="${contactError}" th:text="${contactError}"
-                    style="color: red; font-size: 12px;"></span>
+              <input id="rContact" name="contact" type="tel" placeholder="010-0000-0000"
+                     pattern="^01[0-9]-\d{3,4}-\d{4}$" maxlength="13"
+                     title="전화번호 형식으로 입력해주세요 (예: 010-1234-5678)" required />
             </div>
           </div>
 
@@ -442,5 +434,19 @@
     <div class="footerBottom">© 2026 Art Museum Reservation. All rights reserved.</div>
   </footer>
 </div>
+<script>
+  const contactInput = document.getElementById('rContact');
+  contactInput.addEventListener('input', function () {
+    let digits = this.value.replace(/[^0-9]/g, '');
+    if (digits.length > 11) digits = digits.slice(0, 11);
+    if (digits.length <= 3) {
+      this.value = digits;
+    } else if (digits.length <= 7) {
+      this.value = digits.slice(0, 3) + '-' + digits.slice(3);
+    } else {
+      this.value = digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7);
+    }
+  });
+</script>
 </body>
 </html>
