@@ -18,12 +18,12 @@
       .contentLayout { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; margin-bottom: 80px; }
       @media (max-width: 920px) { .contentLayout { grid-template-columns: 1fr; } }
       .previewCard {
-        background: var(--bg1); border: 1px solid var(--stroke); padding: 16px; width: 290px; height: 460px;
+        background: var(--bg1); border: 1px solid var(--stroke); padding: 16px; min-width: 290px; height: 460px;
         box-sizing: border-box;
         overflow: hidden;
         min-width: 0;
       }
-      .previewCardPad { width: 340px; height: 600px; }
+      .previewCardPad { min-height: 600px; }
       .previewCardTitleRow {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
@@ -58,13 +58,13 @@
         box-sizing: border-box;
       }
       #todoContent {
-        width: 910px; /* 고정 크기 */
+        width: 100%;
         height: 240px;
         resize: none;
       }
       .editCardPad {
-        width: 960px;
-        height: 600px;
+        width: 100%;
+        min-height: 600px;
       }
       #prevTitle {
         display: -webkit-box;           /* 웹킷 기반 박스 레이아웃 활성화 */
