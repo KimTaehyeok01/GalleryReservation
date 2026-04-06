@@ -23,9 +23,14 @@
       .guideBox h3 { margin: 0 0 10px; font-size: 15px; font-weight: 700; }
       .guideBox p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.75; }
       .helpText {
+<<<<<<< Updated upstream
         width: 600px;
         display: -webkit-box;           /* 웹킷 기반 박스 레이아웃 활성화 */
         -webkit-line-clamp: 5;          /* 최대 3줄까지만 표시 */
+=======
+        display: -webkit-box; /* 웹킷 기반 박스 레이아웃 활성화 */
+        -webkit-line-clamp: 5; /* 최대 3줄까지만 표시 */
+>>>>>>> Stashed changes
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
@@ -249,7 +254,7 @@
           </div>
 
           <div class="stack">
-            <div class="card cardPad" style="height: 600px">
+            <div class="card cardPad" style="height: 600px; overflow: hidden;">
               <div class="row">
                 <h2
                   style="
@@ -305,9 +310,7 @@
                 </div>
                 <div
                   class="helpText"
-                  style="margin-top: 2px; color: var(--text)"
-                  id="pDesc"
-                >
+                style="margin-top: 2px; color: var(--text); overflow: hidden; word-break: break-all;" id="pDesc">
                   소개가 여기에 표시됩니다.
                 </div>
               </div>
