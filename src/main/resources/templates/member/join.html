@@ -28,13 +28,13 @@
         display: grid;
         grid-template-columns: 1fr 340px;
         gap: 0;
-        align-items: start;
+        align-items: stretch;
         border: 1px solid var(--stroke);
-        border-top: none;
       }
       .joinMain {
         padding: 36px 32px;
         border-right: 1px solid var(--stroke);
+        min-height: 100%;
       }
       .joinSide {
         padding: 32px 28px;
@@ -224,7 +224,7 @@
 
       <main>
         <div class="container">
-          <header class="pageHeader">
+          <header class="pageHeader" style="border-bottom: none;">
             <div class="pageEyebrow">Member · Sign Up</div>
             <h1 class="pageTitle">회원가입</h1>
             <p class="pageSubtitle">
