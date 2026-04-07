@@ -92,10 +92,10 @@
 
           </div>
           <div class="navActions">
-            <div sec:authorize="!isAuthenticated()" style="display:flex;gap:8px">
-              <a class="btn btn-ghost btn-small" th:href="@{/member/login}">로그인</a>
-              <a class="btn btn-primary btn-small" th:href="@{/member/join}">회원가입</a>
-            </div>
+<!--            <div sec:authorize="!isAuthenticated()" style="display:flex;gap:8px">-->
+<!--              <a class="btn btn-ghost btn-small" th:href="@{/member/login}">로그인</a>-->
+<!--              <a class="btn btn-primary btn-small" th:href="@{/member/join}">회원가입</a>-->
+<!--            </div>-->
             <button class="hamburger" type="button"
               onclick="document.getElementById('mobileMenu').dataset.open=document.getElementById('mobileMenu').dataset.open==='true'?'false':'true'">☰</button>
           </div>
@@ -189,9 +189,7 @@
             <div>
               <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">계정</div>
               <div class="footerLinks" style="flex-direction:column;gap:10px">
-                <a th:href="@{/member/login}">로그인</a>
                 <a th:href="@{/member/join}">회원가입</a>
-                <a th:href="@{/reservation/list}">내 예약</a>
               </div>
             </div>
           </div>
