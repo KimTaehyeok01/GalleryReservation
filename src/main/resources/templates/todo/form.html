@@ -16,9 +16,9 @@
       input:focus, select:focus, textarea:focus { box-shadow: var(--ring); }
       .pageHeader { padding: 40px 0 32px; margin-bottom: 40px; }
       .contentLayout { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; margin-bottom: 80px; }
-      @media (max-width: 920px) { .contentLayout { grid-template-columns: 1fr; } }
+      @media (max-width: 1100px) { .contentLayout { grid-template-columns: 1fr; } }
       .previewCard {
-        width: 300px;
+        min-width: 300px;
         height: 280px;
         background: var(--bg1); border: 1px solid var(--stroke); padding: 16px;
       }
@@ -51,7 +51,8 @@
       .guideBox h3 { margin: 0 0 10px; font-size: 15px; font-weight: 700; }
       .guideBox p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.75; }
       #todoContent {
-        height: 280px;
+        min-height: 180px;
+        height: auto;
         display: -webkit-box;           /* 웹킷 기반 박스 레이아웃 활성화 */
         -webkit-line-clamp: 3;          /* 최대 3줄까지만 표시 */
         overflow: hidden;
@@ -60,8 +61,9 @@
         resize: none;
       }
       .mainCardPad {
-        width: 1000px;
-        height: 550px;
+        width: 100%;
+        min-height: 550px;
+        height: auto;
       }
       .subCardPad{
         height: 400px;
