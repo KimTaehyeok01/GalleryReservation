@@ -33,7 +33,7 @@
         align-items: start;
         margin-bottom: 80px;
       }
-      @media (max-width: 920px) {
+      @media (max-width: 1100px) {
         .contentLayout {
           grid-template-columns: 1fr;
         }
@@ -91,7 +91,8 @@
         line-height: 1.75;
       }
       #todoContent {
-        height: 280px;
+        min-height: 180px;
+        height: auto;
         display: -webkit-box; /* 웹킷 기반 박스 레이아웃 활성화 */
         -webkit-line-clamp: 3; /* 최대 3줄까지만 표시 */
         overflow: hidden;
@@ -100,8 +101,9 @@
         resize: none;
       }
       .mainCardPad {
-        width: 1000px;
-        height: 550px;
+        width: 100%;
+        min-height: 550px;
+        height: auto;
       }
       .subCardPad {
         height: 400px;
