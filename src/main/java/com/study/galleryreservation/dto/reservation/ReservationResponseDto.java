@@ -37,6 +37,7 @@ public class ReservationResponseDto {
                 .endTime(reservation.getEndTime())
                 .guests(reservation.getGuests())
                 .contact(reservation.getContact())
+                .formattedPhone(reservation.getFormattedPhone())
                 .status(reservation.getStatus())
                 .build();
     }

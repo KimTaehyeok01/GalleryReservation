@@ -41,6 +41,17 @@ public class Reservation {
     @Column(name = "contact_info", length = 20)
     private String contact; //연락처
 
+    public String getFormattedPhone() {
+        if (contact == null || contact.isBlank()) return "";
+        String digits = contact.replaceAll("[^0-9]", "");
+        if (digits.length() == 11) {
+            return digits.substring(0, 3) + "-" + digits.substring(3, 7) + "-" + digits.substring(7);
+        } else if (digits.length() == 10) {
+            return digits.substring(0, 3) + "-" + digits.substring(3, 6) + "-" + digits.substring(6);
+        }
+        return contact;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default
