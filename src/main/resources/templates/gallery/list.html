@@ -480,8 +480,8 @@
                   style="flex-direction: column; gap: 10px"
           >
             <a th:href="@{/gallery/list}">전시 목록</a>
-            <a href="#">관람 시간</a>
-            <a href="#">오시는 길</a>
+            <a th:href="@{/visit/hours}">관람 시간</a>
+            <a th:href="@{/visit/directions}">오시는 길</a>
           </div>
         </div>
         <div>
@@ -566,11 +566,12 @@
               .querySelectorAll("#galleryCardGrid article")
               .forEach((card) => {
                 const nameEl = card.querySelector(".galleryThumbName");
-                const name = (nameEl ? nameEl.innerText : "").toLowerCase();
+                const name = (nameEl ? nameEl.innerText : "").toLowerCase().replace(/\s/g, "");
+                const queryClean = query.replace(/\s/g, "");
                 const cr = card.getAttribute("data-floor-zone") || "ALL";
                 const cCap = Number(card.getAttribute("data-cap") || 0);
 
-                const hitText = !query || name.includes(query);
+                const hitText = !queryClean || name.includes(queryClean);
                 const hitRegion = r === "ALL" || String(cr) === String(r);
                 const hitCap = cCap >= cap;
                 card.style.display = hitText && hitRegion && hitCap ? "" : "none";
