@@ -1,5 +1,9 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security6"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -106,25 +110,65 @@
           </a>
           <div class="navLinks">
             <a class="navLink" th:href="@{/gallery/list}">전시 목록</a>
-            <a class="navLink" sec:authorize="isAuthenticated()" th:href="@{/reservation/list}">내 예약</a>
-            <a class="navLink" sec:authorize="hasRole('ADMIN')" th:href="@{/todo/list}">할 일</a>
-            <a class="navLink" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/gallery/list}">관리자</a>
+            <a
+              class="navLink"
+              sec:authorize="isAuthenticated()"
+              th:href="@{/reservation/list}"
+              >내 예약</a
+            >
+            <a
+              class="navLink"
+              sec:authorize="hasRole('ADMIN')"
+              th:href="@{/todo/list}"
+              >할 일</a
+            >
+            <a
+              class="navLink"
+              sec:authorize="hasRole('ADMIN')"
+              th:href="@{/admin/gallery/list}"
+              >관리자</a
+            >
           </div>
           <div class="navActions">
-            <div sec:authorize="!isAuthenticated()" style="display: flex; gap: 8px">
-              <a class="btn btn-ghost btn-small" th:href="@{/member/login}">로그인</a>
-              <a class="btn btn-primary btn-small" th:href="@{/member/join}">회원가입</a>
+            <div
+              sec:authorize="!isAuthenticated()"
+              style="display: flex; gap: 8px"
+            >
+              <a class="btn btn-ghost btn-small" th:href="@{/member/login}"
+                >로그인</a
+              >
+              <a class="btn btn-primary btn-small" th:href="@{/member/join}"
+                >회원가입</a
+              >
             </div>
-            <div sec:authorize="isAuthenticated()" style="display: flex; gap: 8px">
-              <form th:action="@{/member/logout}" method="post" style="margin: 0">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <button type="submit" class="btn btn-ghost btn-small">로그아웃</button>
+            <div
+              sec:authorize="isAuthenticated()"
+              style="display: flex; gap: 8px"
+            >
+              <form
+                th:action="@{/member/logout}"
+                method="post"
+                style="margin: 0"
+              >
+                <input
+                  type="hidden"
+                  th:name="${_csrf.parameterName}"
+                  th:value="${_csrf.token}"
+                />
+                <button type="submit" class="btn btn-ghost btn-small">
+                  로그아웃
+                </button>
               </form>
             </div>
             <button
               class="hamburger"
               type="button"
-              onclick="document.getElementById('mobileMenu').dataset.open=document.getElementById('mobileMenu').dataset.open==='true'?'false':'true'"
+              onclick="
+                document.getElementById('mobileMenu').dataset.open =
+                  document.getElementById('mobileMenu').dataset.open === 'true'
+                    ? 'false'
+                    : 'true'
+              "
               aria-label="메뉴 열기"
             >
               ☰
@@ -134,9 +178,24 @@
         <div id="mobileMenu">
           <div class="mobileMenuInner">
             <a class="navLink" th:href="@{/gallery/list}">전시·관람</a>
-            <a class="navLink" sec:authorize="isAuthenticated()" th:href="@{/reservation/list}">내 예약</a>
-            <a class="navLink" sec:authorize="isAuthenticated()" th:href="@{/todo/list}">할 일</a>
-            <a class="navLink" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/gallery/list}">관리자</a>
+            <a
+              class="navLink"
+              sec:authorize="isAuthenticated()"
+              th:href="@{/reservation/list}"
+              >내 예약</a
+            >
+            <a
+              class="navLink"
+              sec:authorize="isAuthenticated()"
+              th:href="@{/todo/list}"
+              >할 일</a
+            >
+            <a
+              class="navLink"
+              sec:authorize="hasRole('ADMIN')"
+              th:href="@{/admin/gallery/list}"
+              >관리자</a
+            >
           </div>
         </div>
       </nav>
@@ -147,18 +206,21 @@
             <div class="pageEyebrow">Visit · Directions</div>
             <h1 class="pageTitle">오시는 길</h1>
             <p class="visitLead">
-              대중교통 이용을 권장합니다. 주말·공휴일에는 인근 도로가 혼잡할 수 있으니 여유 있게 출발해 주세요.
+              대중교통 이용을 권장합니다. 주말·공휴일에는 인근 도로가 혼잡할 수
+              있으니 여유 있게 출발해 주세요.
             </p>
           </header>
 
           <section class="visitCard">
             <p class="addrBlock">서울특별시 종로구 삼청로 30</p>
-            <p class="addrSub">지번 · 경복궁 동측, 삼청동 일대 · 우편번호 03062</p>
-            <div id="map"></div>
-            <p class="addrSub" style="margin-top: 12px;">
-              지도 앱에서 「Art Museum 서울」 또는 주소를 검색하면 길찾기를 이용하실 수 있습니다.
+            <p class="addrSub">
+              지번 · 경복궁 동측, 삼청동 일대 · 우편번호 03062
             </p>
-
+            <div id="map"></div>
+            <p class="addrSub" style="margin-top: 12px">
+              지도 앱에서 「Art Museum 서울」 또는 주소를 검색하면 길찾기를
+              이용하실 수 있습니다.
+            </p>
           </section>
 
           <section class="visitCard">
@@ -167,14 +229,18 @@
               <span class="routeBadge">지하철</span>
               <div class="routeBody">
                 <strong>3호선 안국역</strong> 1번 출구 도보 약 10분
-                <span class="muted">직진 후 삼청로 방향 이정표를 따라 이동</span>
+                <span class="muted"
+                  >직진 후 삼청로 방향 이정표를 따라 이동</span
+                >
               </div>
             </div>
             <div class="routeItem">
               <span class="routeBadge">버스</span>
               <div class="routeBody">
                 <strong>경복궁·국립민속박물관</strong> 정류장 하차 도보 약 7분
-                <span class="muted">간선 109, 171, 272 등 · 마을버스 종로 11 확인</span>
+                <span class="muted"
+                  >간선 109, 171, 272 등 · 마을버스 종로 11 확인</span
+                >
               </div>
             </div>
           </section>
@@ -182,12 +248,19 @@
           <section class="visitCard" style="margin-bottom: 0">
             <h2 class="visitCardTitle">승용차 · 주차</h2>
             <p class="helpText" style="margin-top: 0">
-              인근 공영·민영 주차장을 이용해 주세요. 전시장 내 방문자 주차는 수량이 한정되어 있으며, 사전 예약 또는
-              안내에 따라 배정됩니다.
+              인근 공영·민영 주차장을 이용해 주세요. 전시장 내 방문자 주차는
+              수량이 한정되어 있으며, 사전 예약 또는 안내에 따라 배정됩니다.
             </p>
             <div class="visitCross">
-              <a class="btn btn-ghost" th:href="@{/visit/hours}">관람 시간 안내</a>
-              <a class="btn btn-primary invertHover" style="margin-left: 10px" th:href="@{/gallery/list}">전시 목록</a>
+              <a class="btn btn-ghost" th:href="@{/visit/hours}"
+                >관람 시간 안내</a
+              >
+              <a
+                class="btn btn-primary invertHover"
+                style="margin-left: 10px"
+                th:href="@{/gallery/list}"
+                >전시 목록</a
+              >
             </div>
           </section>
         </div>
@@ -197,7 +270,9 @@
         <div class="footerInner">
           <div>
             <div class="footerBrand">Art Museum</div>
-            <div class="footerDesc">국립현대미술관 예약 시스템<br />미술 작품과 공간을 예약하세요.</div>
+            <div class="footerDesc">
+              국립현대미술관 예약 시스템<br />미술 작품과 공간을 예약하세요.
+            </div>
           </div>
           <div style="display: flex; gap: 48px; flex-wrap: wrap">
             <div>
@@ -213,7 +288,10 @@
               >
                 관람 안내
               </div>
-              <div class="footerLinks" style="flex-direction: column; gap: 10px">
+              <div
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
                 <a th:href="@{/gallery/list}">전시 목록</a>
                 <a th:href="@{/visit/hours}">관람 시간</a>
                 <a th:href="@{/visit/directions}">오시는 길</a>
@@ -232,14 +310,30 @@
               >
                 계정
               </div>
-              <div sec:authorize="!isAuthenticated()" class="footerLinks" style="flex-direction: column; gap: 10px">
+              <div
+                sec:authorize="!isAuthenticated()"
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
                 <a th:href="@{/member/login}">로그인</a>
                 <a th:href="@{/member/join}">회원가입</a>
               </div>
-              <div sec:authorize="isAuthenticated()" class="footerLinks" style="flex-direction: column; gap: 10px">
+              <div
+                sec:authorize="isAuthenticated()"
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
                 <a th:href="@{/reservation/list}">내 예약</a>
-                <form th:action="@{/member/logout}" method="post" style="margin: 0">
-                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <form
+                  th:action="@{/member/logout}"
+                  method="post"
+                  style="margin: 0"
+                >
+                  <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"
+                  />
                   <button
                     type="submit"
                     class="btn btn-ghost btn-small"
@@ -262,19 +356,21 @@
             </div>
           </div>
         </div>
-        <div class="footerBottom">© 2026 Art Museum Reservation. All rights reserved.</div>
+        <div class="footerBottom">
+          © 2026 Art Museum Reservation. All rights reserved.
+        </div>
       </footer>
     </div>
     <script>
-      var container = document.getElementById('map');
+      var container = document.getElementById("map");
       var options = {
         center: new kakao.maps.LatLng(37.5796, 126.9809),
-        level: 3
+        level: 3,
       };
       var map = new kakao.maps.Map(container, options);
       new kakao.maps.Marker({
         position: options.center,
-        map: map
+        map: map,
       });
     </script>
   </body>

@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>갤러리 관리 — Art Museum</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <style>
       /* 관리자 갤러리 목록: 내 예약·할 일 페이지와 동일한 common.css 기준, 표 영역만 보정 */
@@ -22,17 +22,30 @@
       }
 
       /* 위치 컬럼 */
-      td:nth-child(3), th:nth-child(3) {
+      td:nth-child(3),
+      th:nth-child(3) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
 
-      /* 갤러리명 컬럼 */
-      .tdMain {
+      /* 갤러리명·소개 (할 일 목록 업무 열과 동일: 제목 1줄, 소개 3줄 말줄임) */
+      #galleryRows .tdMain {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      #galleryRows .tdSub {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: pre-line;
       }
     </style>
   </head>
@@ -162,7 +175,11 @@
                 <option value="INACTIVE">마감</option>
               </select>
             </div>
-            <form method="get" th:action="@{/admin/gallery/list}" style="flex:1;max-width:300px;">
+            <form
+              method="get"
+              th:action="@{/admin/gallery/list}"
+              style="flex: 1; max-width: 300px"
+            >
               <div class="toolbarItem" style="flex: 1; max-width: 300px">
                 <label for="searchText">검색</label>
                 <input
@@ -354,10 +371,31 @@
               >
                 <a th:href="@{/admin/gallery/list}">갤러리 관리</a>
                 <a th:href="@{/admin/reservation/list}">예약 관리</a>
-                <form th:action="@{/member/logout}" method="post" style="margin:0">
-                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                  <button type="submit" class="btn btn-ghost btn-small"
-                          style="background:none; border:none; cursor:pointer; padding:0; font:inherit; color:inherit; font-size:13px; display:block; line-height:inherit;">
+                <form
+                  th:action="@{/member/logout}"
+                  method="post"
+                  style="margin: 0"
+                >
+                  <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"
+                  />
+                  <button
+                    type="submit"
+                    class="btn btn-ghost btn-small"
+                    style="
+                      background: none;
+                      border: none;
+                      cursor: pointer;
+                      padding: 0;
+                      font: inherit;
+                      color: inherit;
+                      font-size: 13px;
+                      display: block;
+                      line-height: inherit;
+                    "
+                  >
                     로그아웃
                   </button>
                 </form>

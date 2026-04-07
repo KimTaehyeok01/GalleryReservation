@@ -10,25 +10,7 @@
     <title>할 일 목록</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" th:href="@{/css/common.css}" />
-    <style>
-      /* 할 일 목록 표: 열 너비 고정·헤더 한글 가독성 (관리자 갤러리 목록과 동일한 방식) */
-      .todoListTable {
-        table-layout: fixed;
-        width: 100%;
-      }
-      .todoListTable thead th {
-        white-space: nowrap;
-        text-transform: none;
-        letter-spacing: 0.02em;
-        vertical-align: middle;
-      }
-      .todoListTable td:nth-child(1) {
-        white-space: nowrap;
-      }
-      .todoListTable td:nth-child(2) {
-        min-width: 0;
-      }
-    </style>
+    <link rel="stylesheet" th:href="@{/todo/list.css}" />
   </head>
   <body>
     <div class="appShell">
@@ -139,11 +121,11 @@
 
       <main>
         <div class="container">
-          <header class="pageHeader">
-            <div class="pageEyebrow">Task Management</div>
-            <h1 class="pageTitle">할 일 목록</h1>
+          <div class="pageHeader">
+            <div class="label">Task Management</div>
+            <h1>할 일 목록</h1>
             <p>전시 운영 준비, 점검, 공지 초안을 관리할 수 있어요.</p>
-          </header>
+          </div>
 
           <div
             th:if="${errorMessage}"
@@ -153,39 +135,32 @@
           ></div>
 
           <div class="toolbar">
-            <div class="toolbarItem">
-              <label for="tStatus">상태</label>
-              <select id="tStatus" style="width: 140px">
+            <div class="toolbarFilters">
+              <select id="tStatus">
                 <option value="ALL" selected>전체 상태</option>
                 <option value="false">미완료</option>
                 <option value="true">완료</option>
               </select>
+              <input
+                id="tSearch"
+                type="text"
+                placeholder="제목 검색…"
+                style="min-width: 200px"
+              />
             </div>
-            <div class="toolbarItem" style="flex: 1; max-width: 300px">
-              <label for="tSearch">검색</label>
-              <input id="tSearch" type="text" placeholder="제목 검색…" />
-            </div>
-            <div style="margin-left: auto; padding-bottom: 0">
-              <a class="btn btn-primary invertHover" th:href="@{/todo/form}"
-                >+ 새 할 일</a
-              >
-            </div>
+            <a class="btn btn-primary invertHover" th:href="@{/todo/form}"
+              >+ 새 할 일</a
+            >
           </div>
 
-          <div class="tableWrap" style="margin-top: 0; margin-bottom: 24px">
-            <table class="todoListTable" aria-label="할 일 목록">
-              <colgroup>
-                <col style="width: 130px" />
-                <col />
-                <col style="width: 110px" />
-                <col style="width: 200px" />
-              </colgroup>
+          <div class="tableWrap" style="margin-bottom: 80px">
+            <table aria-label="할 일 목록">
               <thead>
                 <tr>
-                  <th scope="col">기한</th>
-                  <th scope="col">업무</th>
-                  <th scope="col">상태</th>
-                  <th scope="col">작업</th>
+                  <th style="width: 130px">기한</th>
+                  <th>업무</th>
+                  <th style="width: 110px">상태</th>
+                  <th style="width: 200px">작업</th>
                 </tr>
               </thead>
               <tbody id="todoRows">
@@ -199,33 +174,14 @@
                   th:data-status="${todo.isDone}"
                 >
                   <td
-                    style="color: var(--muted); font-size: 13px"
                     th:text="${todo.dueDate}"
+                    style="color: var(--muted); font-size: 13px"
                   >
                     2026-04-03
                   </td>
                   <td>
-                    <div
-                      class="tdMain"
-                      style="
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      "
-                      th:text="${todo.title}"
-                    >
-                      할 일
-                    </div>
-                    <div
-                      class="tdSub"
-                      style="
-                        word-break: break-all; /* 영어 줄바꿈 */
-                        overflow-wrap: break-word;
-                      "
-                      th:text="${todo.content}"
-                    >
-                      내용
-                    </div>
+                    <div class="tdTitle" th:text="${todo.title}">할 일</div>
+                    <div class="tdDesc" th:text="${todo.content}">내용</div>
                   </td>
                   <td>
                     <span

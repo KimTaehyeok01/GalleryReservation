@@ -34,5 +34,4 @@ public class ViewController {
     public String visitDirections() {
         return "visit/directions";
     }
-
 }
