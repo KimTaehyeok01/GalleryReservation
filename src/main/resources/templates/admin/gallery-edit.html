@@ -8,6 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>갤러리 수정 - 관리자</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <style>
       /* 갤러리 수정 전용 */
@@ -27,6 +28,9 @@
       }
       .container {
         padding: 0 16px;
+      }
+      #description {
+        resize: none;
       }
 
       /* Thumb preview: 배경 이미지 + 어두운 그라데이션 + 글자 */
@@ -238,10 +242,10 @@
           <!-- ── 수정 폼 ── -->
           <div class="card cardPad">
             <!--
-                  PUT /admin/gallery/edit/{id}
-                  th:object="${galleryUpdateRequestDto}"
-                  필드: name, location, description, capacity, active
-                -->
+              PUT /admin/gallery/edit/{id}
+              th:object="${galleryUpdateRequestDto}"
+              필드: name, location, description, capacity, active
+            -->
             <form
               id="editForm"
               th:action="@{/admin/gallery/edit/{id}(id=${gallery.id})}"
@@ -295,7 +299,7 @@
                     th:if="${#fields.hasErrors('name')}"
                     th:errors="*{name}"
                   >
-                    이름 오류
+                    갤러리명 오류
                   </div>
                 </div>
 
@@ -390,6 +394,11 @@
                   th:field="*{description}"
                   placeholder="전시 공간의 분위기와 관람 포인트를 간단히 적어주세요."
                 ></textarea>
+                <p
+                  th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"
+                  style="color: red; font-size: 13px"
+                ></p>
                 <div class="helpText">예약 카드에 2줄로 잘려 표시됩니다.</div>
               </div>
 
@@ -463,6 +472,13 @@
                     font-size: 13.5px;
                     color: var(--text);
                     line-height: 1.65;
+                    width: 500px;
+                    height: 65px;
+                    max-width: 500px;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3; /* 보여지는 문장 수 */
+                    -webkit-box-orient: vertical;
                   "
                   id="pDesc"
                   th:text="${gallery.description}"
@@ -568,6 +584,13 @@
               >
                 <a th:href="@{/admin/gallery/list}">갤러리 관리</a>
                 <a th:href="@{/admin/reservation/list}">예약 관리</a>
+                <form th:action="@{/member/logout}" method="post" style="margin:0">
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                  <button type="submit" class="btn btn-ghost btn-small"
+                          style="background:none; border:none; cursor:pointer; padding:0; font:inherit; color:inherit; font-size:13px; display:block; line-height:inherit;">
+                    로그아웃
+                  </button>
+                </form>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>예약 관리 — Art Museum</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" th:href="@{/css/common.css}"/>
   <style>
     .tableWrap { margin-top: 0; margin-bottom: 0; }
@@ -72,7 +73,7 @@
             <option value="CANCELLED">취소</option>
           </select>
         </div>
-        <form method="get" th:action="@{/admin/reservation/list}" style="flex:1;max-width:320px;display:contents">
+        <form method="get" th:action="@{/admin/reservation/list}" style="flex:1;max-width:320px;">
           <div class="toolbarItem" style="flex:1;max-width:320px">
             <label for="resSearch">검색</label>
             <input id="resSearch" name="keyword" type="text" placeholder="갤러리명" th:value="${keyword}"/>
@@ -182,6 +183,13 @@
           <div class="footerLinks" style="flex-direction:column;gap:10px">
             <a th:href="@{/admin/gallery/list}">갤러리 관리</a>
             <a th:href="@{/admin/reservation/list}">예약 관리</a>
+            <form th:action="@{/member/logout}" method="post" style="margin:0">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              <button type="submit" class="btn btn-ghost btn-small"
+                      style="background:none; border:none; cursor:pointer; padding:0; font:inherit; color:inherit; font-size:13px; display:block; line-height:inherit;">
+                로그아웃
+              </button>
+            </form>
           </div>
         </div>
       </div>
