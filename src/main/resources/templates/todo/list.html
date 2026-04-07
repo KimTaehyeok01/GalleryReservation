@@ -11,47 +11,23 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" th:href="@{/css/common.css}"/>
     <style>
-      /* 할 일 목록 전용 */
-      :focus-visible { outline: none; box-shadow: var(--ring); border-color: var(--text) !important; }
-      .toolbar { align-items: center; justify-content: space-between; border-bottom: none; margin-bottom: 24px; padding-bottom: 0; }
-      .toolbarFilters { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-      .toolbarFilters input {
-        padding: 9px 13px; border: 1px solid var(--stroke-dark); border-radius: var(--radius);
-        background: #ffffff; color: var(--text); font-size: 13.5px; font-family: inherit;
-        outline: none; transition: border-color .12s;
+      /* 할 일 목록 표: 열 너비 고정·헤더 한글 가독성 (관리자 갤러리 목록과 동일한 방식) */
+      .todoListTable {
+        table-layout: fixed;
+        width: 100%;
       }
-      .toolbarFilters select {
-        padding: 9px 13px;
-        padding-right: 40px;
-        border: 1px solid var(--stroke-dark); border-radius: var(--radius);
-        background-color: #ffffff;
-        color: var(--text); font-size: 13.5px; font-family: inherit;
-        outline: none; transition: border-color .12s;
-        background-position: right 12px center;
-        background-size: 12px 12px;
-        background-repeat: no-repeat;
-        cursor: pointer;
+      .todoListTable thead th {
+        white-space: nowrap;
+        text-transform: none;
+        letter-spacing: 0.02em;
+        vertical-align: middle;
       }
-      .toolbarFilters select:focus, .toolbarFilters input:focus { border-color: var(--text); box-shadow: var(--ring); }
-      .tableWrap { background: #fff; }
-      table { min-width: 560px; }
-      thead th { font-size: 11px; border-bottom: 1px solid var(--stroke-dark); }
-      tbody td { padding: 16px; }
-      .tdTitle {
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 3px;
-        display: -webkit-box;           /* 웹킷 기반 박스 레이아웃 활성화 */
-        -webkit-line-clamp: 1;          /* 최대 3줄까지만 표시 */
-        -webkit-box-orient: vertical;   /* 세로 방향으로 박스 정렬 */
-        overflow: hidden;               /* 넘치는 텍스트 숨김 */
+      .todoListTable td:nth-child(1) {
+        white-space: nowrap;
       }
-      .tdDesc { color: var(--muted); font-size: 12.5px; margin-top: 3px;
-        display: -webkit-box;           /* 웹킷 기반 박스 레이아웃 활성화 */
-        -webkit-line-clamp: 3;          /* 최대 3줄까지만 표시 */
-        -webkit-box-orient: vertical;   /* 세로 방향으로 박스 정렬 */
-        overflow: hidden;               /* 넘치는 텍스트 숨김 */ }
-      .pageHeader { padding: 40px 0 32px; margin-bottom: 40px; }
+      .todoListTable td:nth-child(2) {
+        min-width: 0;
+      }
     </style>
   </head>
   <body>
@@ -123,34 +99,46 @@
 
       <main>
       <div class="container">
-        <div class="pageHeader">
-          <div class="label">Task Management</div>
-          <h1>할 일 목록</h1>
+        <header class="pageHeader">
+          <div class="pageEyebrow">Task Management</div>
+          <h1 class="pageTitle">할 일 목록</h1>
           <p>전시 운영 준비, 점검, 공지 초안을 관리할 수 있어요.</p>
-        </div>
+        </header>
 
         <div th:if="${errorMessage}" class="flashErr" role="alert" th:text="${errorMessage}"></div>
 
         <div class="toolbar">
-          <div class="toolbarFilters">
-            <select id="tStatus">
+          <div class="toolbarItem">
+            <label for="tStatus">상태</label>
+            <select id="tStatus" style="width: 140px">
               <option value="ALL" selected>전체 상태</option>
               <option value="false">미완료</option>
               <option value="true">완료</option>
             </select>
-            <input id="tSearch" type="text" placeholder="제목 검색…" style="min-width:200px" />
           </div>
-          <a class="btn btn-primary invertHover" th:href="@{/todo/form}">+ 새 할 일</a>
+          <div class="toolbarItem" style="flex: 1; max-width: 300px">
+            <label for="tSearch">검색</label>
+            <input id="tSearch" type="text" placeholder="제목 검색…" />
+          </div>
+          <div style="margin-left: auto; padding-bottom: 0">
+            <a class="btn btn-primary invertHover" th:href="@{/todo/form}">+ 새 할 일</a>
+          </div>
         </div>
 
-        <div class="tableWrap" style="margin-bottom:80px">
-          <table aria-label="할 일 목록">
+        <div class="tableWrap" style="margin-top: 0; margin-bottom: 24px">
+          <table class="todoListTable" aria-label="할 일 목록">
+            <colgroup>
+              <col style="width: 130px" />
+              <col />
+              <col style="width: 110px" />
+              <col style="width: 200px" />
+            </colgroup>
             <thead>
               <tr>
-                <th style="width:130px">기한</th>
-                <th>업무</th>
-                <th style="width:110px">상태</th>
-                <th style="width:200px">작업</th>
+                <th scope="col">기한</th>
+                <th scope="col">업무</th>
+                <th scope="col">상태</th>
+                <th scope="col">작업</th>
               </tr>
             </thead>
             <tbody id="todoRows">
@@ -158,10 +146,13 @@
                 <td colspan="4" class="emptyCell">등록된 할 일이 없습니다. 새 할 일을 만들어보세요.</td>
               </tr>
               <tr th:each="todo : ${page.content}" th:data-status="${todo.isDone}">
-                <td th:text="${todo.dueDate}" style="color:var(--muted);font-size:13px">2026-04-03</td>
+                <td style="color: var(--muted); font-size: 13px" th:text="${todo.dueDate}">2026-04-03</td>
                 <td>
-                  <div class="tdTitle" th:text="${todo.title}">할 일</div>
-                  <div class="tdDesc" th:text="${todo.content}">내용</div>
+                  <div class="tdMain" style="overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;" th:text="${todo.title}">할 일</div>
+                  <div class="tdSub" style="word-break: break-all;   /* 영어 줄바꿈 */
+        overflow-wrap: break-word;" th:text="${todo.content}">내용</div>
                 </td>
                 <td>
                   <span
