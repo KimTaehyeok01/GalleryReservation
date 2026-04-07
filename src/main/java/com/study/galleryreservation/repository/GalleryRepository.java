@@ -16,4 +16,5 @@ public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     //갤러리 관리에서 조회
     @Query("SELECT g FROM Gallery g WHERE LOWER(REPLACE(g.name, ' ', '')) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     Page<Gallery> findByNameIgnoreSpace(@Param("keyword") String keyword, Pageable pageable);
+
 }

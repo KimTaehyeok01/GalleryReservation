@@ -50,16 +50,6 @@
       .filterGroup:last-child {
         margin-bottom: 0;
       }
-      #applyFilter {
-        border-color: #111111;
-        background: #ffffff;
-        color: #111111;
-      }
-      #applyFilter:hover {
-        background: #111111;
-        color: #ffffff;
-        border-color: #111111;
-      }
 
       .galleryMeta {
         display: flex;
@@ -185,6 +175,7 @@
         margin-bottom: 5px;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+        line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
@@ -347,7 +338,7 @@
             <div class="pageEyebrow">Gallery · Exhibition</div>
             <h1 class="pageTitle">지금 예약 가능한<br />전시 공간</h1>
             <p class="pageSubtitle">
-              원하는 전시 공간을 선택해서 자세한 정보를 확인하고 예약하세요.
+              전시 공간을 선택하면 상세 정보와 예약 화면으로 이동합니다.
             </p>
           </header>
         </div>
@@ -380,14 +371,11 @@
                 <label for="minCap">최소 인원</label>
                 <input id="minCap" type="number" min="1" step="1" value="1" />
               </div>
-              <button
-                class="btn btn-primary"
-                type="button"
-                id="applyFilter"
-                style="width: 100%; margin-top: 8px"
-              >
-                필터 적용
-              </button>
+              <!--          <div class="row" style="justify-content: flex-end">-->
+              <!--            <button class="btn btn-ghost" type="button" id="applyFilter">-->
+              <!--              필터 적용-->
+              <!--            </button>-->
+              <!--          </div>-->
             </aside>
 
             <!-- GALLERY LIST -->
@@ -396,7 +384,7 @@
                 <div>
                   <div class="galleryMetaTitle">전시 공간</div>
                   <div class="galleryMetaSub">
-                    카드를 클릭하면 상세 및 예약 화면으로 이동할 수 있어요.
+                    카드를 클릭하면 상세 및 예약 화면으로 이동합니다.
                   </div>
                 </div>
               </div>
@@ -492,8 +480,8 @@
                 style="flex-direction: column; gap: 10px"
               >
                 <a th:href="@{/gallery/list}">전시 목록</a>
-                <a href="#">관람 시간</a>
-                <a href="#">오시는 길</a>
+                <a th:href="@{/visit/hours}">관람 시간</a>
+                <a th:href="@{/visit/directions}">오시는 길</a>
               </div>
             </div>
             <div>
@@ -566,39 +554,43 @@
         const q = document.getElementById("q");
         const region = document.getElementById("region");
         const minCap = document.getElementById("minCap");
-        const applyBtn = document.getElementById("applyFilter");
-        const emptyState = document.getElementById("emptyState");
+        const cards = document.querySelectorAll("#galleryCardGrid article");
         if (!q || !region || !minCap) return;
 
         function apply() {
           const query = (q.value || "").toLowerCase().trim();
           const r = region.value || "ALL";
           const cap = Number(minCap.value || 1);
-          let visibleCount = 0;
 
-      document
-        .querySelectorAll("#galleryCardGrid article")
-        .forEach((card) => {
-          const text = (card.innerText || "").toLowerCase();
-          const cr = card.getAttribute("data-floor-zone") || "ALL";
-          const cCap = Number(card.getAttribute("data-cap") || 0);
+          document
+            .querySelectorAll("#galleryCardGrid article")
+            .forEach((card) => {
+              const nameEl = card.querySelector(".galleryThumbName");
+              const name = (nameEl ? nameEl.innerText : "")
+                .toLowerCase()
+                .replace(/\s/g, "");
+              const queryClean = query.replace(/\s/g, "");
+              const cr = card.getAttribute("data-floor-zone") || "ALL";
+              const cCap = Number(card.getAttribute("data-cap") || 0);
 
-          if (emptyState) emptyState.style.display = visibleCount === 0 ? "block" : "none";
+              const hitText = !queryClean || name.includes(queryClean);
+              const hitRegion = r === "ALL" || String(cr) === String(r);
+              const hitCap = cCap >= cap;
+              card.style.display = hitText && hitRegion && hitCap ? "" : "none";
+            });
         }
-
         const grid = document.getElementById("galleryCardGrid");
-        if(grid){
-          Array.from(grid.querySelectorAll("article")).forEach(card => {
+        if (grid) {
+          Array.from(grid.querySelectorAll("article")).forEach((card) => {
             if (card.getAttribute("data-status") === "false") {
               card.classList.add("galleryCard--inactive");
               grid.appendChild(card);
             }
-          })
+          });
         }
 
-        // q.addEventListener("keydown", (e) => { if (e.key === "Enter") apply(); });
-        // region.addEventListener("keydown", (e) => { if (e.key === "Click") apply(); });
-        if (applyBtn) applyBtn.addEventListener("click", apply);
+        [q, minCap].forEach((el) => el.addEventListener("input", apply));
+        region.addEventListener("change", apply);
         apply();
       })();
     </script>

@@ -28,13 +28,13 @@
         display: grid;
         grid-template-columns: 1fr 340px;
         gap: 0;
-        align-items: start;
+        align-items: stretch;
         border: 1px solid var(--stroke);
-        border-top: none;
       }
       .joinMain {
         padding: 36px 32px;
         border-right: 1px solid var(--stroke);
+        min-height: 100%;
       }
       .joinSide {
         padding: 32px 28px;
@@ -224,7 +224,7 @@
 
       <main>
         <div class="container">
-          <header class="pageHeader">
+          <header class="pageHeader" style="border-bottom: none;">
             <div class="pageEyebrow">Member · Sign Up</div>
             <h1 class="pageTitle">회원가입</h1>
             <p class="pageSubtitle">
@@ -432,8 +432,8 @@
                 style="flex-direction: column; gap: 10px"
               >
                 <a th:href="@{/gallery/list}">전시 목록</a>
-                <a href="#">관람 시간</a>
-                <a href="#">오시는 길</a>
+                <a th:href="@{/visit/hours}">관람 시간</a>
+                <a th:href="@{/visit/directions}">오시는 길</a>
               </div>
             </div>
             <div>
