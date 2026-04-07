@@ -65,7 +65,7 @@
       <div class="toolbar">
         <div class="toolbarItem">
           <label for="resStatus">상태</label>
-          <select id="resStatus" style="width:160px">
+          <select id="resStatus" style="width:140px">
             <option value="ALL" selected>전체</option>
             <option value="PENDING">대기</option>
             <option value="APPROVED">확정</option>
@@ -73,8 +73,8 @@
             <option value="CANCELLED">취소</option>
           </select>
         </div>
-        <form method="get" th:action="@{/admin/reservation/list}" style="flex:1;max-width:320px;">
-          <div class="toolbarItem" style="flex:1;max-width:320px">
+        <form method="get" th:action="@{/admin/reservation/list}" style="flex:1;max-width:300px;">
+          <div class="toolbarItem" style="flex:1;max-width:300px">
             <label for="resSearch">검색</label>
             <input id="resSearch" name="keyword" type="text" placeholder="갤러리명" th:value="${keyword}"/>
           </div>
@@ -85,9 +85,9 @@
         <table aria-label="예약 관리 목록">
           <thead>
             <tr>
-              <th style="width:88px">예약 ID</th>
+              <th style="width:80px">예약 ID</th>
               <th>갤러리</th>
-              <th style="width:220px">예약자</th>
+              <th style="width:200px">예약자</th>
               <th style="width:220px">일정</th>
               <th style="width:120px">상태</th>
               <th style="width:200px">작업</th>
