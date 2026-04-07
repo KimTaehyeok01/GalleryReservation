@@ -281,7 +281,7 @@
         .querySelectorAll("#galleryCardGrid article")
         .forEach((card) => {
           const text = (card.innerText || "").toLowerCase();
-          const cr = card.getAttribute("data-region") || "ALL";
+          const cr = card.getAttribute("data-floor-zone") || "ALL";
           const cCap = Number(card.getAttribute("data-cap") || 0);
 
           const hitText = !query || text.includes(query);
