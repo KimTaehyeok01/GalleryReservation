@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>예약 상세 - 갤러리 예약</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <style>
       /* 예약 상세 전용 — gallery/detail 과 유사한 풀폭·꽉 찬 레이아웃 */
@@ -291,14 +291,11 @@
         margin-top: 8px;
         border: 1px solid var(--stroke);
         border-radius: var(--radius-sm);
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow: hidden;
       }
       .reservePolicyTable {
         width: 100%;
-        min-width: 420px;
         border-collapse: collapse;
-        table-layout: fixed;
         font-size: 12.5px;
         color: var(--muted);
       }
@@ -309,9 +306,6 @@
         border-bottom: 1px solid var(--stroke);
         vertical-align: top;
         line-height: 1.5;
-        white-space: normal;
-        word-break: keep-all;
-        overflow-wrap: anywhere;
       }
       .reservePolicyTable tr:last-child td {
         border-bottom: none;
@@ -328,17 +322,6 @@
         color: var(--text);
         font-weight: 700;
         width: 44%;
-      }
-
-      @media (max-width: 420px) {
-        .reservePolicyTable {
-          min-width: 360px;
-        }
-        .reservePolicyTable th,
-        .reservePolicyTable td {
-          padding: 9px 10px;
-          font-size: 12px;
-        }
       }
 
       .reserveCard {
@@ -659,8 +642,7 @@
                   <span
                     th:class="${gallery.isActive} ? 'badge badge-ok' : 'badge badge-danger'"
                     th:text="${gallery.isActive} ? '운영중' : '마감'"
-                    >운영중</span
-                  >
+                    >운영중</span>
                   <span
                     th:text="${(gallery.floorZone == '1' ? '1층' : gallery.floorZone == '2' ? '2층' : gallery.floorZone == '3' ? '3층' : gallery.floorZone == 'B' ? '지하' : gallery.floorZone) + ' · ' + (gallery.location != null ? gallery.location : '') + ' · ' + gallery.capacity + '석'}"
                   ></span>
@@ -682,21 +664,11 @@
                   </div>
                   <div class="infoItem">
                     <div class="infoItemLabel">수용 인원</div>
-                    <div
-                      class="infoItemValue"
-                      th:text="${gallery.capacity + '석'}"
-                    >
-                      —
-                    </div>
+                    <div class="infoItemValue" th:text="${gallery.capacity + '석'}">—</div>
                   </div>
                   <div class="infoItem">
                     <div class="infoItemLabel">위치</div>
-                    <div
-                      class="infoItemValue"
-                      th:text="${gallery.location != null ? gallery.location : '—'}"
-                    >
-                      —
-                    </div>
+                    <div class="infoItemValue" th:text="${gallery.location != null ? gallery.location : '—'}">—</div>
                   </div>
                   <div class="infoItem">
                     <div class="infoItemLabel">층 / 구역</div>
@@ -720,38 +692,28 @@
               <div class="infoBlock" style="border-bottom: none">
                 <div class="infoBlockTitle">
                   관람 안내
-                  <span
-                    class="badge badge-info"
-                    style="margin-left: 8px; vertical-align: middle"
-                    >Guided</span
-                  >
+                  <span class="badge badge-info" style="margin-left: 8px; vertical-align: middle">Guided</span>
                 </div>
                 <div class="stepList">
                   <div class="stepItem">
                     <div class="stepNum">1</div>
                     <div>
                       <div class="stepTitle">입장 후 5분 오리엔테이션</div>
-                      <div class="stepDesc">
-                        조명과 동선 안내를 먼저 제공합니다.
-                      </div>
+                      <div class="stepDesc">조명과 동선 안내를 먼저 제공합니다.</div>
                     </div>
                   </div>
                   <div class="stepItem">
                     <div class="stepNum">2</div>
                     <div>
                       <div class="stepTitle">30분 단독 감상</div>
-                      <div class="stepDesc">
-                        속도를 조절할 수 있는 좌석 배치로 구성됩니다.
-                      </div>
+                      <div class="stepDesc">속도를 조절할 수 있는 좌석 배치로 구성됩니다.</div>
                     </div>
                   </div>
                   <div class="stepItem">
                     <div class="stepNum">3</div>
                     <div>
                       <div class="stepTitle">관람 기록 2분</div>
-                      <div class="stepDesc">
-                        간단한 메모를 남길 수 있습니다.
-                      </div>
+                      <div class="stepDesc">간단한 메모를 남길 수 있습니다.</div>
                     </div>
                   </div>
                 </div>
@@ -825,30 +787,20 @@
               <div class="reservePolicyBlock">
                 <div class="reservePolicyTitleBar">
                   <span class="reservePolicyTitleText">관람 주의사항</span>
-                  <span
-                    class="reservePolicyTitleLine"
-                    aria-hidden="true"
-                  ></span>
+                  <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                 </div>
 
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
-                    <span class="reservePolicyTitleText"
-                      >작품과의 거리 유지</span
-                    >
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleText">작품과의 거리 유지</span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyCopy">
                     <p>
-                      눈으로만 감상하세요: 손의 유분이나 염분이 작품을 훼손할 수
-                      있습니다.
+                      눈으로만 감상하세요: 손의 유분이나 염분이 작품을 훼손할 수 있습니다.
                     </p>
                     <p>
-                      안전선 준수: 바닥에 표시된 가이드라인 뒤에서 관람해
-                      주세요.
+                      안전선 준수: 바닥에 표시된 가이드라인 뒤에서 관람해 주세요.
                     </p>
                   </div>
                 </div>
@@ -856,50 +808,35 @@
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
                     <span class="reservePolicyTitleText">촬영 규정 확인</span>
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyCopy">
                     <p>
-                      플래시 및 삼각대 금지: 강한 빛은 작품의 색상을
-                      변질시킵니다. 촬영이 허용된 곳이라도 플래시는 반드시 꺼야
-                      합니다.
+                      플래시 및 삼각대 금지: 강한 빛은 작품의 색상을 변질시킵니다. 촬영이 허용된 곳이라도 플래시는 반드시 꺼야 합니다.
                     </p>
                     <p>
-                      무음 촬영: 다른 관람객의 몰입을 방해하지 않도록 무음
-                      카메라 앱을 권장합니다.
+                      무음 촬영: 다른 관람객의 몰입을 방해하지 않도록 무음 카메라 앱을 권장합니다.
                     </p>
                     <p>
-                      촬영 불가 구역: ‘No Photo’ 표시가 있는 작품이나 구역은
-                      절대 촬영해서는 안 됩니다.
+                      촬영 불가 구역: ‘No Photo’ 표시가 있는 작품이나 구역은 절대 촬영해서는 안 됩니다.
                     </p>
                   </div>
                 </div>
 
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
-                    <span class="reservePolicyTitleText"
-                      >정숙 및 이동 에티켓</span
-                    >
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleText">정숙 및 이동 에티켓</span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyCopy">
                     <p>
-                      대화는 소곤소곤: 작품에 대한 감상은 낮은 목소리로 나누어
-                      주세요.
+                      대화는 소곤소곤: 작품에 대한 감상은 낮은 목소리로 나누어 주세요.
                     </p>
                     <p>
-                      휴대전화 매너: 진동 모드로 전환하고, 통화는 전시장 밖에서
-                      부탁드립니다.
+                      휴대전화 매너: 진동 모드로 전환하고, 통화는 전시장 밖에서 부탁드립니다.
                     </p>
                     <p>
-                      뛰지 않기: 전시장 내에서 뛰는 행위는 본인과 타인의 안전,
-                      그리고 작품 보호를 위해 엄격히 금지됩니다.
+                      뛰지 않기: 전시장 내에서 뛰는 행위는 본인과 타인의 안전, 그리고 작품 보호를 위해 엄격히 금지됩니다.
                     </p>
                   </div>
                 </div>
@@ -907,20 +844,14 @@
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
                     <span class="reservePolicyTitleText">반입 금지 품목</span>
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyCopy">
                     <p>
-                      음식물 및 음료: 생수를 포함한 모든 음식물은 반입이
-                      어렵습니다.
+                      음식물 및 음료: 생수를 포함한 모든 음식물은 반입이 어렵습니다.
                     </p>
                     <p>
-                      큰 가방 및 우산: 백팩은 가방 보관소에 맡기거나 앞으로 매는
-                      것이 관례입니다. (뒤로 매면 뒤에 있는 작품을 칠 수 있기
-                      때문입니다.)
+                      큰 가방 및 우산: 백팩은 가방 보관소에 맡기거나 앞으로 매는 것이 관례입니다. (뒤로 매면 뒤에 있는 작품을 칠 수 있기 때문입니다.)
                     </p>
                   </div>
                 </div>
@@ -929,43 +860,28 @@
               <!-- 예매 취소 및 위약 규정 -->
               <div class="reservePolicyBlock">
                 <div class="reservePolicyTitleBar">
-                  <span class="reservePolicyTitleText"
-                    >예매 취소 및 위약 규정</span
-                  >
-                  <span
-                    class="reservePolicyTitleLine"
-                    aria-hidden="true"
-                  ></span>
+                  <span class="reservePolicyTitleText">예매 취소 및 위약 규정</span>
+                  <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                 </div>
                 <p class="reservePolicyLead">
-                  대부분의 전시회는 공정거래위원회 소비자분쟁해결기준 및
-                  예매처(인터파크, 네이버 등)의 규정을 따릅니다.
+                  대부분의 전시회는 공정거래위원회 소비자분쟁해결기준 및 예매처(인터파크, 네이버 등)의 규정을 따릅니다.
                 </p>
 
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
                     <span class="reservePolicyTitleText">취소 가능 기한</span>
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyCopy">
                     <p>보통 관람 전일 17:00~23:59까지 취소가 가능합니다.</p>
-                    <p>
-                      당일 취소 및 환불은 원칙적으로 불가능한 경우가
-                      대부분입니다.
-                    </p>
+                    <p>당일 취소 및 환불은 원칙적으로 불가능한 경우가 대부분입니다.</p>
                   </div>
                 </div>
 
                 <div class="reservePolicyGroup">
                   <div class="reservePolicyTitleBar reservePolicyTitleBar--sub">
                     <span class="reservePolicyTitleText">취소 수수료</span>
-                    <span
-                      class="reservePolicyTitleLine"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="reservePolicyTitleLine" aria-hidden="true"></span>
                   </div>
                   <div class="reservePolicyTableWrap">
                     <table class="reservePolicyTable">
@@ -1004,33 +920,33 @@
 
               <!-- 취소 영역 (PENDING일 때만) -->
               <!-- <div
-            class="cancelArea"
-            th:if="${reservation.status.name() == 'PENDING'}"
-          >
-            <div>
-              <div class="cancelAreaText">예약을 취소하시겠어요?</div>
-              <div class="cancelAreaSub">
-                취소 후에는 복구할 수 없습니다.
-              </div>
-            </div>
+                class="cancelArea"
+                th:if="${reservation.status.name() == 'PENDING'}"
+              >
+                <div>
+                  <div class="cancelAreaText">예약을 취소하시겠어요?</div>
+                  <div class="cancelAreaSub">
+                    취소 후에는 복구할 수 없습니다.
+                  </div>
+                </div>
 
 
-            <form
-              th:action="@{/reservation/cancel/{id}(id=${reservation.id})}"
-              method="post"
-              style="margin: 0; flex-shrink: 0"
-            >
-              <input
-                type="hidden"
-                th:name="${_csrf.parameterName}"
-                th:value="${_csrf.token}"
-              />
-              <button class="btn btn-danger btn-small" type="submit">
-                취소하기
-              </button>
-            </form>
-
-          </div> -->
+                <form
+                  th:action="@{/reservation/cancel/{id}(id=${reservation.id})}"
+                  method="post"
+                  style="margin: 0; flex-shrink: 0"
+                >
+                  <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"
+                  />
+                  <button class="btn btn-danger btn-small" type="submit">
+                    취소하기
+                  </button>
+                </form>
+                
+              </div> -->
 
               <!-- 카드 하단 -->
               <div class="reserveFooter">
