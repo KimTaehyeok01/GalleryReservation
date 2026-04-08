@@ -33,9 +33,8 @@ public class GalleryService {
     public Page<Gallery> getList(int page, String keyword){
         Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
         if (keyword != null && !keyword.isBlank()) {
-            String cleanKeyword = keyword.replaceAll("\\s", "");
-            System.out.println("검색어: " + cleanKeyword);
-            return galleryRepository.findByNameIgnoreSpace(cleanKeyword, pageable);
+            String normalized = keyword.replaceAll("\\s+", "");
+            return galleryRepository.searchByKeyword(normalized, pageable);
         }
         return galleryRepository.findAll(pageable);
     }

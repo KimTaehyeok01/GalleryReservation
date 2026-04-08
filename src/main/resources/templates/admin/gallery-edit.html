@@ -429,6 +429,15 @@
                 관리자
               </div>
               <div
+                sec:authorize="!isAuthenticated()"
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
+                <a th:href="@{/member/login}">로그인</a>
+                <a th:href="@{/member/join}">회원가입</a>
+              </div>
+              <div
+                sec:authorize="isAuthenticated()"
                 class="footerLinks"
                 style="flex-direction: column; gap: 10px"
               >

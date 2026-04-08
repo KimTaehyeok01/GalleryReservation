@@ -175,22 +175,15 @@
                 <option value="INACTIVE">마감</option>
               </select>
             </div>
-            <form
-              method="get"
-              th:action="@{/admin/gallery/list}"
-              style="flex: 1; max-width: 300px"
-            >
-              <div class="toolbarItem" style="flex: 1; max-width: 300px">
-                <label for="searchText">검색</label>
-                <input
-                  id="searchText"
-                  name="keyword"
-                  type="text"
-                  placeholder="갤러리명 / 위치"
-                  th:value="${keyword}"
-                />
-              </div>
-            </form>
+            <div class="toolbarItem" style="flex: 1; max-width: 300px">
+              <label for="searchText">검색</label>
+              <input
+                id="searchText"
+                type="text"
+                placeholder="갤러리명 / 위치"
+                th:value="${keyword}"
+              />
+            </div>
             <div style="margin-left: auto; padding-bottom: 0">
               <a
                 class="btn btn-primary invertHover"
@@ -203,7 +196,7 @@
             <table aria-label="갤러리 목록">
               <thead>
                 <tr>
-                  <th style="width: 80px">번호</th>
+                  <th style="width: 72px">번호</th>
                   <th>갤러리</th>
                   <th style="width: 200px">위치</th>
                   <th style="width: 100px">수용 인원</th>
@@ -365,7 +358,17 @@
               >
                 관리자
               </div>
+
               <div
+                sec:authorize="!isAuthenticated()"
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
+                <a th:href="@{/member/login}">로그인</a>
+                <a th:href="@{/member/join}">회원가입</a>
+              </div>
+              <div
+                sec:authorize="isAuthenticated()"
                 class="footerLinks"
                 style="flex-direction: column; gap: 10px"
               >
@@ -412,16 +415,29 @@
     <script>
       (function () {
         const status = document.getElementById("statusFilter");
+        const search = document.getElementById("searchText");
         const rows = document.querySelectorAll("#galleryRows tr[data-status]");
-        if (!status) return;
-        function apply() {
+        if (!status || !search) return;
+
+        // 상태 필터: 클라이언트 사이드 (백엔드 미지원)
+        function applyStatus() {
           const s = status.value || "ALL";
           rows.forEach(function (tr) {
             const st = tr.getAttribute("data-status") || "";
             tr.style.display = s === "ALL" || st === s ? "" : "none";
           });
         }
-        status.addEventListener("change", apply);
+        status.addEventListener("change", applyStatus);
+
+        // 키워드 검색: 서버 사이드 (전체 페이지 검색)
+        search.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const q = search.value.trim();
+            location.href =
+              "/admin/gallery/list?page=0&keyword=" + encodeURIComponent(q);
+          }
+        });
       })();
     </script>
   </body>

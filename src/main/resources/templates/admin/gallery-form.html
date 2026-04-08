@@ -378,10 +378,18 @@
                 계정
               </div>
               <div
+                sec:authorize="!isAuthenticated()"
                 class="footerLinks"
                 style="flex-direction: column; gap: 10px"
               >
-                <<<<<<< HEAD
+                <a th:href="@{/member/login}">로그인</a>
+                <a th:href="@{/member/join}">회원가입</a>
+              </div>
+              <div
+                sec:authorize="isAuthenticated()"
+                class="footerLinks"
+                style="flex-direction: column; gap: 10px"
+              >
                 <a th:href="@{/admin/gallery/list}">갤러리 관리</a>
                 <a th:href="@{/admin/reservation/list}">예약 관리</a>
                 <form
@@ -412,11 +420,6 @@
                     로그아웃
                   </button>
                 </form>
-                =======
-                <a th:href="@{/member/login}">로그인</a>
-                <a th:href="@{/member/join}">회원가입</a>
-                <a th:href="@{/reservation/list}">내 예약</a>
-                >>>>>>> taehyeok
               </div>
             </div>
           </div>

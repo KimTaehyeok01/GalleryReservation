@@ -11,10 +11,7 @@ import java.util.Optional;
 
 public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     Optional<Gallery> findByName(String name);
-    Page<Gallery> findByNameContainingIgnoreCaseOrLocationContainingIgnoreCase(String name, String location, Pageable pageable);
 
-    //갤러리 관리에서 조회
-    @Query("SELECT g FROM Gallery g WHERE LOWER(REPLACE(g.name, ' ', '')) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    Page<Gallery> findByNameIgnoreSpace(@Param("keyword") String keyword, Pageable pageable);
-
+    @Query("SELECT g FROM Gallery g WHERE LOWER(FUNCTION('replace', g.name, ' ', '')) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<Gallery> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 }

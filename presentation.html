@@ -605,26 +605,29 @@
 <span style="color:#89dceb;">com.study.galleryreservation</span><br/>
 ├── <span class="kw">config</span><br/>
 │&nbsp;&nbsp; ├── SecurityConfig<br/>
+│&nbsp;&nbsp; ├── OAuthAttributes<br/>
 │&nbsp;&nbsp; └── CustomAuthenticationSuccessHandler<br/>
 ├── <span class="kw">controller</span><br/>
+│&nbsp;&nbsp; ├── AdminController<br/>
 │&nbsp;&nbsp; ├── GalleryController<br/>
-│&nbsp;&nbsp; ├── ReservationController<br/>
 │&nbsp;&nbsp; ├── MemberController<br/>
+│&nbsp;&nbsp; ├── ReservationController<br/>
 │&nbsp;&nbsp; ├── TodoController<br/>
-│&nbsp;&nbsp; └── AdminController<br/>
-├── <span class="kw">service</span><br/>
-│&nbsp;&nbsp; ├── GalleryService<br/>
-│&nbsp;&nbsp; ├── ReservationService<br/>
-│&nbsp;&nbsp; ├── MemberService<br/>
-│&nbsp;&nbsp; ├── TodoService<br/>
-│&nbsp;&nbsp; └── CustomOAuth2UserService<br/>
-├── <span class="kw">repository</span><br/>
-│&nbsp;&nbsp; └── Gallery / Reservation / Member / TodoRepository<br/>
-├── <span class="kw">entity</span><br/>
-│&nbsp;&nbsp; └── Gallery / Reservation / Member / Todo<br/>
+│&nbsp;&nbsp; └── ViewController<br/>
+├── <span class="kw">domain</span><br/>
+│&nbsp;&nbsp; ├── gallery/ &nbsp;&nbsp;← Gallery<br/>
+│&nbsp;&nbsp; ├── member/ &nbsp;&nbsp;← Member, MemberRole<br/>
+│&nbsp;&nbsp; ├── reservation/ ← Reservation, ReservationStatus<br/>
+│&nbsp;&nbsp; ├── session/ &nbsp;&nbsp;← SessionUser, SnsUser, UserRole<br/>
+│&nbsp;&nbsp; └── todo/ &nbsp;&nbsp;&nbsp;&nbsp;← Todo<br/>
 ├── <span class="kw">dto</span><br/>
-│&nbsp;&nbsp; └── *RequestDto / *ResponseDto<br/>
-└── <span class="kw">session</span> &nbsp;└── SessionUser
+│&nbsp;&nbsp; └── gallery / member / reservation / todo<br/>
+├── <span class="kw">repository</span><br/>
+│&nbsp;&nbsp; └── Gallery / Reservation / Member / Todo / SnsUserRepository<br/>
+└── <span class="kw">service</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; ├── GalleryService · ReservationService<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; ├── MemberService · TodoService<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; └── CustomOAuth2UserService · CustomUserDetailsService
           </div>
         </div>
         <div>
@@ -632,19 +635,20 @@
           <div class="codeBlock" style="font-size:11.5px; line-height:1.9;">
 <span style="color:#89dceb;">src/main/resources</span><br/>
 ├── <span class="kw">templates</span><br/>
-│&nbsp;&nbsp; ├── admin/ &nbsp;&nbsp;&nbsp;&nbsp;← 갤러리 관리 폼·목록<br/>
-│&nbsp;&nbsp; ├── gallery/ &nbsp;&nbsp;← 갤러리 목록·상세<br/>
-│&nbsp;&nbsp; ├── member/ &nbsp;&nbsp;← 로그인·회원가입<br/>
-│&nbsp;&nbsp; ├── reservation/ ← 예약 폼·목록<br/>
-│&nbsp;&nbsp; └── todo/ &nbsp;&nbsp;&nbsp;&nbsp;← 할 일 목록·폼·수정<br/>
+│&nbsp;&nbsp; ├── admin/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 갤러리 관리 폼·목록·수정<br/>
+│&nbsp;&nbsp; ├── gallery/ &nbsp;&nbsp;&nbsp;&nbsp;← 갤러리 목록·상세<br/>
+│&nbsp;&nbsp; ├── member/ &nbsp;&nbsp;&nbsp;&nbsp;← 로그인·회원가입<br/>
+│&nbsp;&nbsp; ├── reservation/ ← 예약 목록·상세<br/>
+│&nbsp;&nbsp; ├── todo/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 할 일 목록·폼·수정<br/>
+│&nbsp;&nbsp; ├── visit/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 관람시간·오시는길<br/>
+│&nbsp;&nbsp; └── index.html<br/>
 ├── <span class="kw">static</span><br/>
-│&nbsp;&nbsp; ├── css/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← common.css<br/>
-│&nbsp;&nbsp; ├── admin/ &nbsp;&nbsp;&nbsp;&nbsp;← *.css<br/>
-│&nbsp;&nbsp; ├── gallery/ &nbsp;&nbsp;← *.css<br/>
-│&nbsp;&nbsp; ├── member/ &nbsp;&nbsp;← *.css<br/>
-│&nbsp;&nbsp; ├── reservation/ ← *.css<br/>
-│&nbsp;&nbsp; └── todo/ &nbsp;&nbsp;&nbsp;&nbsp;← *.css<br/>
-└── application.properties
+│&nbsp;&nbsp; ├── css/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← common.css<br/>
+│&nbsp;&nbsp; ├── admin / gallery / member<br/>
+│&nbsp;&nbsp; ├── reservation / todo &nbsp;← *.css<br/>
+│&nbsp;&nbsp; └── favicon.png<br/>
+├── application.yml<br/>
+└── application-secret.yml
           </div>
           <div style="margin-top:14px; display:flex; flex-direction:column; gap:7px;">
             <div style="display:flex; gap:8px; align-items:center;"><span class="pill indigo" style="font-size:11px; padding:3px 10px; flex-shrink:0;">entity</span><span style="font-size:12.5px; color:var(--muted);">DB 테이블 매핑 (@Entity)</span></div>
