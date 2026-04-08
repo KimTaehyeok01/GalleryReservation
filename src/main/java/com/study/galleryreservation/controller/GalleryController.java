@@ -70,9 +70,15 @@ public class GalleryController {
             return "gallery/detail";
         }
 
+        try {
             galleryService.save(requestDto, sessionUser.getEmail());
-            return "redirect:/reservation/list";
-
-
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("capacityError", e.getMessage());
+            Gallery gallery = galleryRepository.findById(requestDto.getGalleryId()).orElseThrow();
+            model.addAttribute("gallery", gallery);
+            model.addAttribute("visitTimeSlots", halfHourSlots(gallery.getStartTime(), gallery.getEndTime()));
+            return "gallery/detail";
+        }
+        return "redirect:/reservation/list";
     }
 }
