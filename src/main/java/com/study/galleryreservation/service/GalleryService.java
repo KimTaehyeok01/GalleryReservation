@@ -123,4 +123,18 @@ public class GalleryService {
     }
 
     // 숫자만 추출 후 자릿수에 따라 하이픈 포맷(010-XXXX-XXXX)으로 변환
+    private String formatPhoneNumber(String phone) {
+        String digits = phone.replaceAll("[^0-9]", "");
+        System.out.println("digits = " + digits);
+        if (digits.length() == 11) {
+            System.out.println("digits = " + digits);
+            System.out.println("digits.substring(0, 3) = " + digits.substring(0, 3));
+            System.out.println("digits.substring(3, 7) = " + digits.substring(3, 7));
+            System.out.println("digits.substring(7) = " + digits.substring(7));
+            return digits.substring(0, 3) + "-" + digits.substring(3, 7) + "-" + digits.substring(7);
+        } else if (digits.length() == 10) {
+            return digits.substring(0, 3) + "-" + digits.substring(3, 6) + "-" + digits.substring(6);
+        }
+        return phone;
+    }
 }
