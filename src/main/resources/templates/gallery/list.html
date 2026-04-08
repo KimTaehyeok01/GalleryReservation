@@ -354,7 +354,9 @@
             .querySelectorAll("#galleryCardGrid article")
             .forEach((card) => {
               const nameEl = card.querySelector(".galleryThumbName");
-              const name = (nameEl ? nameEl.innerText : "").toLowerCase().replace(/\s+/g, "");
+              const name = (nameEl ? nameEl.innerText : "")
+                .toLowerCase()
+                .replace(/\s+/g, "");
               const cr = card.getAttribute("data-floor-zone") || "ALL";
               const cCap = Number(card.getAttribute("data-cap") || 0);
 
