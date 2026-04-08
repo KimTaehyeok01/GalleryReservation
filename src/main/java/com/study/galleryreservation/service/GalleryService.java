@@ -121,4 +121,6 @@ public class GalleryService {
 
         reservationRepository.save(reservation);
     }
+
+    // 숫자만 추출 후 자릿수에 따라 하이픈 포맷(010-XXXX-XXXX)으로 변환
 }
