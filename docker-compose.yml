@@ -2,7 +2,11 @@ version: '3.8'
 
 services:
   app:
+<<<<<<< Updated upstream
     image: your-dockerhub-id/gallery-reservation:latest
+=======
+    image: yuri7534/gallery-reservation:latest
+>>>>>>> Stashed changes
     ports:
       - "8080:8080"
     environment:
