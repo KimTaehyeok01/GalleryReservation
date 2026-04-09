@@ -21,4 +21,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Page<Reservation> searchByMemberAndGalleryName(@Param("member") Member member, @Param("keyword") String keyword, Pageable pageable);
 
     List<Reservation> findAllByOrderByIdAsc();
+
+    //내 예약에서 조회
+    @Query("SELECT r FROM Reservation r WHERE r.member = :member AND LOWER(REPLACE(r.gallery.name, ' ', '')) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<Reservation> findByMemberAndGalleryNameIgnoreSpace(@Param("member") Member member, @Param("keyword") String keyword, Pageable pageable);
+    //관리자 예약관리에서 조회
+    @Query("SELECT r FROM Reservation r WHERE LOWER(REPLACE(r.gallery.name, ' ', '')) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<Reservation> findByGalleryNameIgnoreSpace(@Param("keyword") String keyword, Pageable pageable);
+
 }

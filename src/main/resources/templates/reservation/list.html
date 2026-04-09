@@ -194,11 +194,7 @@
                   th:each="reservation, iter : ${page.content}"
                   th:data-status="${reservation.status.name()}"
                 >
-                  <td
-                    th:text="${page.number * page.size + iter.count}"
-                  >
-                    1
-                  </td>
+                  <td th:text="${page.number * page.size + iter.count}">1</td>
                   <td>
                     <a
                       class="tdMain"

@@ -17,6 +17,7 @@ public class ViewController {
         return "index";
     }
 
+
     // 전시 목록 페이지 이동
     @GetMapping("/gallery/list")
     public String galleryList(Model model){

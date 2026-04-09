@@ -6,6 +6,7 @@ import com.study.galleryreservation.dto.reservation.ReservationCreateRequestDto;
 import com.study.galleryreservation.repository.GalleryRepository;
 import com.study.galleryreservation.service.GalleryService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,7 +39,9 @@ public class GalleryController {
         return "gallery/detail";
     }
 
-    /** start(포함) ~ end(미포함) 구간을 30분 간격으로 나눈 관람 선택 시간 목록 */
+    /**
+     * start(포함) ~ end(미포함) 구간을 30분 간격으로 나눈 관람 선택 시간 목록
+     */
     static List<LocalTime> halfHourSlots(LocalTime start, LocalTime end) {
         List<LocalTime> slots = new ArrayList<>();
         if (start == null || end == null || !end.isAfter(start)) {

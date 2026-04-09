@@ -78,7 +78,7 @@ public class GalleryService {
                 new IllegalArgumentException("갤러리를 찾을 수 없습니다."));
     }
 
-     // 갤러리 수정(관리자 전용)
+    // 갤러리 수정(관리자 전용)
     @Transactional
     public void update(final Long id, final GalleryUpdateRequestDto dto) {
         Gallery gallery = galleryRepository.findById(id).orElseThrow(() ->
@@ -106,10 +106,10 @@ public class GalleryService {
 
         Gallery gallery = galleryRepository.findById(requestDto.getGalleryId())
                 .orElseThrow(()->new IllegalArgumentException("갤러리를 찾을 수 없습니다."));
-        
+
         // 갤러리의 남은 수용 인원에서 예약 인원을 차감
         gallery.reduceCapacity(requestDto.getGuests());
-        
+
         Reservation reservation = Reservation.builder()
                 .member(member)
                 .gallery(gallery)
@@ -127,7 +127,11 @@ public class GalleryService {
     // 숫자만 추출 후 자릿수에 따라 하이픈 포맷(010-XXXX-XXXX)으로 변환
     private String formatPhoneNumber(String phone) {
         String digits = phone.replaceAll("[^0-9]", "");
+        System.out.println("digits = " + digits);
         if (digits.length() == 11) {
+            System.out.println("digits.substring(0, 3) = " + digits.substring(0, 3));
+            System.out.println("digits.substring(3, 7) = " + digits.substring(3, 7));
+            System.out.println("digits.substring(7) = " + digits.substring(7));
             return digits.substring(0, 3) + "-" + digits.substring(3, 7) + "-" + digits.substring(7);
         } else if (digits.length() == 10) {
             return digits.substring(0, 3) + "-" + digits.substring(3, 6) + "-" + digits.substring(6);

@@ -77,6 +77,10 @@ public class Gallery {
         this.updatedAt = LocalDateTime.now();
     }
 
+    /**
+     * HTML에서 img src에 넣을 주소입니다.
+     * 인터넷 주소(https://...)는 그대로 쓰고, 그 외에는 웹 루트 기준 경로(/로 시작)로 맞춥니다.
+     */
     public String getCoverImageUrlForDisplay() {
         if (coverImageUrl == null || coverImageUrl.isBlank()) {
             return null;
@@ -90,7 +94,6 @@ public class Gallery {
         }
         return "/" + url;
     }
-
 
     // 예약시 최대 수용 인원에서 차감
     public void reduceCapacity(Integer guests) {
