@@ -78,7 +78,7 @@ public class GalleryService {
                 new IllegalArgumentException("갤러리를 찾을 수 없습니다."));
     }
 
-     // 갤러리 수정(관리자 전용)
+    // 갤러리 수정(관리자 전용)
     @Transactional
     public void update(final Long id, final GalleryUpdateRequestDto dto) {
         Gallery gallery = galleryRepository.findById(id).orElseThrow(() ->
@@ -106,7 +106,10 @@ public class GalleryService {
 
         Gallery gallery = galleryRepository.findById(requestDto.getGalleryId())
                 .orElseThrow(()->new IllegalArgumentException("갤러리를 찾을 수 없습니다."));
-        
+
+        // 갤러리의 남은 수용 인원에서 예약 인원을 차감
+        gallery.reduceCapacity(requestDto.getGuests());
+
         Reservation reservation = Reservation.builder()
                 .member(member)
                 .gallery(gallery)
@@ -114,10 +117,9 @@ public class GalleryService {
                 .startTime(requestDto.getStartTime())
                 .endTime(requestDto.getEndTime())
                 .guests(requestDto.getGuests())
-                .contact(requestDto.getContact())
+                .contact(formatPhoneNumber(requestDto.getContact()))
                 .status(ReservationStatus.PENDING)
                 .build();
-
 
         reservationRepository.save(reservation);
     }
@@ -127,7 +129,6 @@ public class GalleryService {
         String digits = phone.replaceAll("[^0-9]", "");
         System.out.println("digits = " + digits);
         if (digits.length() == 11) {
-            System.out.println("digits = " + digits);
             System.out.println("digits.substring(0, 3) = " + digits.substring(0, 3));
             System.out.println("digits.substring(3, 7) = " + digits.substring(3, 7));
             System.out.println("digits.substring(7) = " + digits.substring(7));
