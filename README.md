@@ -60,25 +60,43 @@ http://3.36.161.179
 ### Backend
 
 <p>
-  <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=OpenJDK&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Java 21-007396?style=flat-square&logo=OpenJDK&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring Boot 3-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring Security 6-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
   <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat-square&logo=spring&logoColor=white"/>
   <img src="https://img.shields.io/badge/OAuth2-EB5424?style=flat-square&logo=auth0&logoColor=white"/>
+</p>
+
+### Frontend
+
+<p>
   <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=thymeleaf&logoColor=white"/>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
 </p>
 
 ### Database
 
 <p>
   <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white"/>
 </p>
 
-### Build & Infra
+### Build & Deploy
 
 <p>
   <img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=gradle&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white"/>
+</p>
+
+### Collaboration
+
+<p>
+  <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white"/>
 </p>
 
 ---
@@ -179,15 +197,15 @@ http://3.36.161.179
 
 ---
 
-## 📡 API 명세
+## 📡 API 명세서
 
-![API 명세서](readme_assets/api명세서.png)
+![API 명세서](readme_assets/api.png)
 
 ---
 
 ## 🏗 시스템 아키텍처
 
-![시스템 아키텍처](readme_assets/architecture.svg)
+![아키텍처 설계](readme_assets/architecture.png)
 
 ---
 
@@ -285,110 +303,3 @@ gallery (1) ─────< reservation (N)
 | 소셜 로그인 (카카오, 네이버) | 할 일 등록 / 수정 / 삭제 | 예약 기능 구현          | 갤러리 목록 / 상세 |
 | Spring Security 설정         |                          | 예약 목록 / 상세 / 취소 |                    |
 | 관리자 페이지                |                          |                         |                    |
-
----
-
-## 📡 API 명세서
-
-### 공통 페이지 (ViewController)
-
-| Method | URL                 | 설명           | 인증   |
-| ------ | ------------------- | -------------- | ------ |
-| GET    | `/`                 | 메인 페이지    | 불필요 |
-| GET    | `/gallery/list`     | 갤러리 목록    | 불필요 |
-| GET    | `/visit/hours`      | 관람 시간 안내 | 불필요 |
-| GET    | `/visit/directions` | 오시는 길 안내 | 불필요 |
-
----
-
-### 회원 (MemberController)
-
-| Method | URL              | 설명            | 인증   |
-| ------ | ---------------- | --------------- | ------ |
-| GET    | `/member/login`  | 로그인 페이지   | 불필요 |
-| GET    | `/member/join`   | 회원가입 페이지 | 불필요 |
-| POST   | `/member/join`   | 회원가입 처리   | 불필요 |
-| POST   | `/member/logout` | 로그아웃        | 필요   |
-
----
-
-### 갤러리 / 예약 신청 (GalleryController)
-
-| Method | URL                       | 설명                  | 인증        |
-| ------ | ------------------------- | --------------------- | ----------- |
-| GET    | `/gallery/detail?id={id}` | 갤러리 상세 + 예약 폼 | 불필요      |
-| POST   | `/gallery/detail`         | 예약 신청 등록        | 필요 (USER) |
-
-**POST `/gallery/detail` 요청 파라미터**
-
-| 파라미터        | 타입      | 필수 | 설명                   |
-| --------------- | --------- | ---- | ---------------------- |
-| galleryId       | Long      | O    | 갤러리 ID              |
-| reservationDate | LocalDate | O    | 예약 날짜              |
-| startTime       | LocalTime | O    | 시작 시간              |
-| endTime         | LocalTime | O    | 종료 시간              |
-| guests          | Integer   | O    | 예약 인원              |
-| contact         | String    | O    | 연락처 (010-XXXX-XXXX) |
-
----
-
-### 내 예약 (ReservationController)
-
-| Method | URL                        | 설명                       | 인증        |
-| ------ | -------------------------- | -------------------------- | ----------- |
-| GET    | `/reservation/list`        | 내 예약 목록 (페이징·검색) | 필요 (USER) |
-| GET    | `/reservation/detail/{id}` | 예약 상세 조회             | 필요 (USER) |
-| POST   | `/reservation/cancel/{id}` | 예약 취소 (PENDING만 가능) | 필요 (USER) |
-
-**GET `/reservation/list` 쿼리 파라미터**
-
-| 파라미터 | 타입   | 기본값 | 설명          |
-| -------- | ------ | ------ | ------------- |
-| page     | int    | 0      | 페이지 번호   |
-| keyword  | String | ""     | 갤러리명 검색 |
-
----
-
-### 할 일 (TodoController)
-
-| Method | URL                 | 설명                          | 인증         |
-| ------ | ------------------- | ----------------------------- | ------------ |
-| GET    | `/todo/list`        | 할 일 목록 (페이징·검색·필터) | 필요 (ADMIN) |
-| GET    | `/todo/form`        | 할 일 작성 페이지             | 필요 (ADMIN) |
-| POST   | `/todo/create`      | 할 일 생성                    | 필요 (ADMIN) |
-| GET    | `/todo/update/{id}` | 할 일 수정 페이지             | 필요 (ADMIN) |
-| POST   | `/todo/update/{id}` | 할 일 수정                    | 필요 (ADMIN) |
-| POST   | `/todo/delete/{id}` | 할 일 삭제                    | 필요 (ADMIN) |
-
-**GET `/todo/list` 쿼리 파라미터**
-
-| 파라미터 | 타입    | 필수 | 설명                 |
-| -------- | ------- | ---- | -------------------- |
-| page     | int     | X    | 페이지 번호 (기본 0) |
-| memberId | Long    | X    | 특정 멤버 필터       |
-| keyword  | String  | X    | 제목 검색            |
-| isDone   | Boolean | X    | 완료 여부 필터       |
-
----
-
-### 관리자 (AdminController)
-
-| Method | URL                               | 설명                           | 인증         |
-| ------ | --------------------------------- | ------------------------------ | ------------ |
-| GET    | `/admin/gallery/list`             | 갤러리 관리 목록 (페이징·검색) | 필요 (ADMIN) |
-| GET    | `/admin/gallery/form`             | 갤러리 등록 페이지             | 필요 (ADMIN) |
-| POST   | `/admin/gallery/form`             | 갤러리 등록                    | 필요 (ADMIN) |
-| GET    | `/admin/gallery/edit/{id}`        | 갤러리 수정 페이지             | 필요 (ADMIN) |
-| POST   | `/admin/gallery/edit/{id}`        | 갤러리 수정                    | 필요 (ADMIN) |
-| POST   | `/admin/gallery/delete/{id}`      | 갤러리 삭제                    | 필요 (ADMIN) |
-| GET    | `/admin/reservation/list`         | 전체 예약 목록 (페이징·검색)   | 필요 (ADMIN) |
-| POST   | `/admin/reservation/approve/{id}` | 예약 승인                      | 필요 (ADMIN) |
-| POST   | `/admin/reservation/reject/{id}`  | 예약 거절                      | 필요 (ADMIN) |
-
-**예약 상태 흐름**
-
-```
-PENDING(대기) ──→ APPROVED(확정)
-             └──→ REJECTED(거절)
-             └──→ CANCELLED(취소, 사용자 직접)
-```
